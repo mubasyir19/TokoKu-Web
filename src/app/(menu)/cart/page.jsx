@@ -1,6 +1,18 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 
 export default function Cart() {
+  const [count, setCount] = useState(1);
+
+  const addCount = () => {
+    setCount(count + 1);
+  };
+
+  const minCount = () => {
+    setCount(count - 1);
+  };
+
   return (
     <div className='px-5'>
       {/* <p>This is Cart page</p> */}
@@ -16,9 +28,13 @@ export default function Cart() {
             </div>
           </div>
           <div className='flex gap-x-2 my-auto'>
-            <button className='h-6 w-6 rounded-lg bg-[#EDEDED]'>-</button>
-            <p className=''>10</p>
-            <button className='h-6 w-6 rounded-lg bg-[#FFD600]'>+</button>
+            <button className='h-6 w-6 rounded-lg bg-[#EDEDED]' onClick={minCount}>
+              -
+            </button>
+            <p className=''>{count}</p>
+            <button className='h-6 w-6 rounded-lg bg-[#FFD600]' onClick={addCount}>
+              +
+            </button>
           </div>
         </div>
         <hr />
