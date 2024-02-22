@@ -1,14 +1,22 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export default function Product() {
+  const router = useRouter();
+
   return (
     <section className='relative h-screen mb-40'>
       <div className='absolute inset-x-0 top-0 left-5 right-5 flex justify-between'>
-        <Link href='#' className='my-auto p-2 h-10 w-10 flex justify-center items-center rounded-full bg-black'>
+        <button
+          onClick={() => router.back()}
+          className='my-auto p-2 h-10 w-10 flex justify-center items-center rounded-full bg-black'
+        >
           <Image src='/icons/arrow-left.svg' height={16} width={16} alt='button-back' />
-        </Link>
+        </button>
         <h3 className='py-2 my-auto text-center text-xl'>Product Detail</h3>
         <div className='w-10 h-10'></div>
       </div>
