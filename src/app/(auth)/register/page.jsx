@@ -44,13 +44,13 @@ export default function Register() {
         </div>
         <div className='form-group'>
           <label htmlFor='' className='font-semibold text-lg text-black'>
-            Mobile Number
+            Phone Number
           </label>
           <input
             type='tel'
             name='no_telepon'
             className='w-full p-4 border-2 rounded-lg border-[#887E7E]'
-            placeholder='Enter your mobile number'
+            placeholder='Enter your phone number'
           />
         </div>
         <div className='form-group'>

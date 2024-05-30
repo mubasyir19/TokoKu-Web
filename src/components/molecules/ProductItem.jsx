@@ -1,16 +1,25 @@
-import Link from 'next/link';
-import React from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
-export default function ProductItem({ name, price }) {
+export default function ProductItem({ name, price, unit, image }) {
   return (
-    <div className='card-product'>
-      <div className='w-44 h-36 bg-[#D9D9D9] rounded-lg'></div>
-      <div className='mt-2'>
-        <Link href='#detailproduct'>
-          <p className='text-sm'>{name}</p>
+    <div className="card-product">
+      {/* <div className="h-36 w-44 rounded-lg bg-[#D9D9D9]"></div> */}
+      <Image
+        height={144}
+        width={176}
+        alt="product-image"
+        loading="lazy"
+        src={image}
+        className="h-36 w-44 rounded-lg object-cover"
+      />
+      <div className="mt-2">
+        <Link href={`/product/${name.replace(/ /g, "-")}`}>
+          <p className="text-sm">{name}</p>
         </Link>
-        <p className='mt-1 text-sm font-semibold'>
-          {price} <span>/ pack</span>
+        <p className="mt-1 text-xs font-semibold">
+          {price} <span>{unit}</span>
         </p>
       </div>
     </div>
