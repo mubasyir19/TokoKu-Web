@@ -8,7 +8,7 @@ export default function BottomNav() {
   const pathname = usePathname();
   return (
     <nav
-      className="shadow-3xl fixed bottom-5 left-0 right-0 z-10 mx-auto flex w-9/12 justify-around gap-x-2 rounded-full bg-yellow-300 p-1 text-gray-600"
+      className="shadow-3xl fixed bottom-5 left-0 right-0 z-10 mx-auto flex max-w-xs justify-around gap-x-2 rounded-full bg-yellow-300 p-1 text-gray-600"
       // style={{ boxShadow: '0 -2px 6px rgba(0, 0, 0, 0.1)' }}
     >
       {pathname === "/home" ? (

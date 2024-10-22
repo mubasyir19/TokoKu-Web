@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import products from "../../../../services/products.json";
 import { formatHarga } from "@/helpers/utils";
@@ -11,6 +11,7 @@ import ShareButton from "@/components/ShareButton/ShareButton";
 export default function DetailProduct() {
   const [productURL, setProductURL] = useState("");
 
+  const route = useRouter();
   const router = useParams();
   // console.log(router);
   const productURI = router.name;
@@ -33,7 +34,10 @@ export default function DetailProduct() {
   return (
     <section className="realtive py-0">
       <div className="absolute flex w-full justify-between px-5 py-4 text-white drop-shadow-xl">
-        <Link href="#" className="my-auto rounded-full bg-black p-2">
+        <button
+          onClick={() => route.back()}
+          className="my-auto rounded-full bg-black p-2"
+        >
           <Image
             src="/icons/arrow-left.svg"
             width={20}
@@ -41,7 +45,7 @@ export default function DetailProduct() {
             alt="arrow"
             className=""
           />
-        </Link>
+        </button>
         <div className="my-auto">
           {/* <h2 className="text-lg text-white">Detail Produk</h2> */}
         </div>

@@ -1,8 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmitLogin = async () => {
+    try {
+      const response = await fetch("", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+    } catch (error) {}
+  };
+
   return (
     <section>
       <Link href="/home" className="flex gap-x-2 text-black">
@@ -30,7 +47,10 @@ export default function Login() {
             className="mx-auto"
             alt="illustration"
           />
-          <form className="mt-8 flex flex-col gap-y-4">
+          <form
+            onSubmit={handleSubmitLogin}
+            className="mt-8 flex flex-col gap-y-4"
+          >
             <div className="mb-4 text-center">
               <h3 className="text-2xl font-semibold">Sign In</h3>
               <p className="text-[#887E7E]">Sign in to continue!</p>
@@ -38,7 +58,8 @@ export default function Login() {
             <div className="form-group">
               <input
                 type="text"
-                name=""
+                name="username"
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full rounded-lg border-2 border-[#887E7E] p-4"
                 placeholder="Username, email & phone number"
               />
@@ -47,6 +68,7 @@ export default function Login() {
               <input
                 type="password"
                 name="password"
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border-2 border-[#887E7E] p-4"
                 placeholder="Password"
               />
