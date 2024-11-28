@@ -46,36 +46,48 @@ export default function DetailProduct() {
             className=""
           />
         </button>
-        <div className="my-auto">
-          {/* <h2 className="text-lg text-white">Detail Produk</h2> */}
-        </div>
+        <div className="my-auto"></div>
         <Link href="#" className="my-auto text-lg"></Link>
       </div>
       <div className="pb-40">
         <div id="card-product" className="">
           <div id="card-image" className="">
-            {/* <div className="h-96 w-full bg-gray-400"></div> */}
             <Image
               src={product.image}
               width={384}
               height={384}
               alt="photo product"
-              className="h-96 w-full object-cover"
+              className="h-96 w-full rounded-b-3xl object-cover"
             />
           </div>
           <div id="card-body" className="mt-4 px-5">
-            <p className="text-sm capitalize text-gray-400">
-              {product.category}
-            </p>
-            <p className="font-bold">{product.name}</p>
-            <div className="flex gap-x-3">
-              <div className="">{formatHarga(product.price)}</div>
-              <div className="">{product.unit}</div>
+            <p className="text-2xl font-bold">{product.name}</p>
+            <p className="mt-2 text-black">{product.unit}</p>
+            <div className="mt-7 flex items-center justify-between">
+              <div className="flex items-center gap-x-2">
+                <button
+                  className="text-4xl text-[#B3B3B3]"
+                  // onClick={minCount}
+                >
+                  -
+                </button>
+                <p className="rounded-lg border-2 border-[#EDEDED] px-4 py-2 text-lg text-black">
+                  1
+                </p>
+                <button
+                  className="text-4xl text-[#FFD600]"
+                  // onClick={addCount}
+                >
+                  +
+                </button>
+              </div>
+              <div className="">
+                <p className="text-lg font-bold text-black">
+                  {formatHarga(product.price)}
+                </p>
+              </div>
             </div>
-            <div className="mx-auto mt-4 w-1/2 gap-x-3">
-              {/* <button className="rounded-full bg-yellow-primary px-4 py-2 text-xs">
-                Bagikan
-              </button> */}
+            {/* <div className="mx-auto mt-4 w-1/2 gap-x-3">
               <button className="w-full rounded-full bg-yellow-primary px-4 py-2 text-xs">
                 Keranjang
               </button>
@@ -83,12 +95,20 @@ export default function DetailProduct() {
                 url={productURL}
                 title="Checkout barang ini segera!"
               />
-            </div>
+            </div> */}
+            <p className="mt-7 text-base font-semibold text-black">
+              Detail Produk
+            </p>
             <div
               id="description"
-              className="mt-8 text-justify indent-8 text-sm"
+              className="mt-6 text-justify indent-8 text-base text-black"
             >
-              <p>{product.description}</p>
+              <p className="">{product.description}</p>
+            </div>
+            <div className="mt-8">
+              <button className="w-full rounded-lg bg-[#FFD600] py-4 font-semibold text-black">
+                Tambah Ke Keranjang
+              </button>
             </div>
           </div>
         </div>
