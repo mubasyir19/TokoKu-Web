@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-export default function useLoginForm() {
+export default function useRegisterForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -20,7 +20,7 @@ export default function useLoginForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     setLoading(true);
@@ -28,7 +28,7 @@ export default function useLoginForm() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BACKEND_ARTOS}/user/signup`,
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/user/signup`,
         {
           method: "POST",
           headers: {
@@ -39,9 +39,10 @@ export default function useLoginForm() {
       );
 
       const data = await response.json();
+      console.log("Hasil request = ", data);
 
       if (response.ok) {
-        router.push("/");
+        router.push("/login");
         setLoading(false);
       } else if (response.status === 401) {
         setError(data.message);
@@ -71,6 +72,6 @@ export default function useLoginForm() {
     isModalOpen,
     closeModal,
     handleChange,
-    handleLogin,
+    handleRegister,
   };
 }
