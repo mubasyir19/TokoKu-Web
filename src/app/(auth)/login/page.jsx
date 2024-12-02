@@ -1,24 +1,21 @@
 "use client";
 
+import ErrorModals from "@/components/molecules/ErrorModals";
+import LoadingModals from "@/components/molecules/LoadingModals";
+import useLoginForm from "@/hooks/useLoginForm";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmitLogin = async () => {
-    try {
-      const response = await fetch("", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
-    } catch (error) {}
-  };
+  const {
+    formData,
+    loading,
+    error,
+    isModalOpen,
+    closeModal,
+    handleChange,
+    handleLogin,
+  } = useLoginForm();
 
   return (
     <section>
@@ -47,10 +44,7 @@ export default function Login() {
             className="mx-auto"
             alt="illustration"
           />
-          <form
-            onSubmit={handleSubmitLogin}
-            className="mt-8 flex flex-col gap-y-4"
-          >
+          <form onSubmit={handleLogin} className="mt-8 flex flex-col gap-y-4">
             <div className="mb-4 text-center">
               <h3 className="text-2xl font-semibold">Sign In</h3>
               <p className="text-[#887E7E]">Sign in to continue!</p>
@@ -59,8 +53,9 @@ export default function Login() {
               <input
                 type="text"
                 name="username"
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full rounded-lg border-2 border-[#887E7E] p-4"
+                value={formData.username}
+                onChange={handleChange}
+                className="w-full rounded-lg border border-[#887E7E] p-4"
                 placeholder="Username, email & phone number"
               />
             </div>
@@ -68,8 +63,9 @@ export default function Login() {
               <input
                 type="password"
                 name="password"
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-lg border-2 border-[#887E7E] p-4"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full rounded-lg border border-[#887E7E] p-4"
                 placeholder="Password"
               />
             </div>
@@ -97,6 +93,16 @@ export default function Login() {
           <div className="my-auto h-1 w-full grow bg-gradient-to-r from-yellow-primary"></div>
         </div>
       </div>
+      {loading && <LoadingModals />}
+      {error && (
+        <ErrorModals
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          title="An Error Occured"
+        >
+          <p>{error}</p>
+        </ErrorModals>
+      )}
     </section>
   );
 }

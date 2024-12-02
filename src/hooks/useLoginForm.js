@@ -26,7 +26,7 @@ export default function useLoginForm() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BACKEND_ARTOS}/user/signin`,
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/user/signin`,
         {
           method: "POST",
           headers: {
@@ -37,6 +37,7 @@ export default function useLoginForm() {
       );
 
       const data = await response.json();
+      console.log("Hasil request login = ", data);
 
       if (response.ok) {
         const tokenBase64 = btoa(data.access_token);
@@ -45,7 +46,7 @@ export default function useLoginForm() {
           secure: true,
           sameSite: "strict",
         });
-        router.push("/dashboard");
+        router.push("/home");
         setLoading(false);
       } else if (response.status === 401) {
         setError(data.message);
