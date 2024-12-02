@@ -26,7 +26,7 @@ export default function useLoginForm() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BACKEND_ARTOS}/auth/login`,
+        `${process.env.NEXT_PUBLIC_API_BACKEND_ARTOS}/user/signin`,
         {
           method: "POST",
           headers: {
