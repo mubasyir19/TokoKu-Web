@@ -14,7 +14,8 @@ export default function ProductItem({ name, price, unit, image }) {
         className="h-36 w-44 rounded-lg object-cover"
       />
       <div className="mt-2">
-        <Link href={`/product/${name.replace(/ /g, "-")}`}>
+        {/* <Link href={`/product/${name.replace(/ /g, "-")}`}> */}
+        <Link href={`/product/${name}`}>
           <p className="text-sm">{name}</p>
         </Link>
         <p className="mt-1 text-xs font-semibold">
