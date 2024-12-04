@@ -5,7 +5,7 @@ import { formatHarga } from "@/helpers/utils";
 
 export default function ListProduct() {
   const dataProduct = useFetchProduct();
-  console.log("ini data produk = ", dataProduct);
+
   return (
     <section className="mx-4 mb-20 mt-5 grid grid-cols-2 justify-items-center gap-5">
       {dataProduct.map((product) => (
