@@ -5,7 +5,6 @@ import React from "react";
 export default function ProductItem({ name, price, unit, image }) {
   return (
     <div className="card-product">
-      {/* <div className="h-36 w-44 rounded-lg bg-[#D9D9D9]"></div> */}
       <Image
         height={144}
         width={176}
@@ -19,7 +18,7 @@ export default function ProductItem({ name, price, unit, image }) {
           <p className="text-sm">{name}</p>
         </Link>
         <p className="mt-1 text-xs font-semibold">
-          {price} <span>{unit}</span>
+          {price} / <span>{unit}</span>
         </p>
       </div>
     </div>

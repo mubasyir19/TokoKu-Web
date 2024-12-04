@@ -4,6 +4,7 @@ import ProductItem from "@/components/molecules/ProductItem";
 import { formatHarga } from "@/helpers/utils";
 import products from "../../../services/products.json";
 import ListCategory from "@/components/organism/ListCategory";
+import ListProduct from "@/components/organism/ListProduct";
 
 export default function Home() {
   return (
@@ -33,7 +34,8 @@ export default function Home() {
         <div className="h-36 w-full rounded-xl bg-[#D9D9D9]"></div>
       </div>
       <ListCategory />
-      <div className="mx-4 mb-20 mt-5 grid grid-cols-2 justify-items-center gap-5">
+      <ListProduct />
+      {/* <div className="mx-4 mb-20 mt-5 grid grid-cols-2 justify-items-center gap-5">
         {products.map((product, index) => (
           <>
             <ProductItem
@@ -45,7 +47,7 @@ export default function Home() {
             />
           </>
         ))}
-      </div>
+      </div> */}
     </main>
   );
 }
