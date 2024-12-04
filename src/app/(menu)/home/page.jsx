@@ -1,13 +1,13 @@
 "use client";
 
-import CategoryItem from "@/components/molecules/CategoryItem";
 import ProductItem from "@/components/molecules/ProductItem";
 import { formatHarga } from "@/helpers/utils";
 import products from "../../../services/products.json";
+import ListCategory from "@/components/organism/ListCategory";
 
 export default function Home() {
   return (
-    <div className="bg-white pb-40">
+    <main className="bg-white pb-40">
       <div className="flex justify-between px-4 pt-5">
         <div>
           <p>Selamat Datang</p>
@@ -32,52 +32,20 @@ export default function Home() {
       <div className="mt-5 px-4">
         <div className="h-36 w-full rounded-xl bg-[#D9D9D9]"></div>
       </div>
-      <div className="mx-4 mt-5 grid grid-cols-7 gap-x-20 gap-y-5 overflow-x-scroll">
-        <CategoryItem name="Sembako" link="sembako" icon="sembako" />
-        <CategoryItem name="Coffee" link="coffee" icon="coffee" />
-        <CategoryItem name="Snacks" link="snacks" icon="snacks" />
-        <CategoryItem name="Bumbu" link="bumbu" icon="bumbu" />
-        <CategoryItem name="Herbal" link="herbal" icon="herbal" />
-        <CategoryItem name="Roti" link="roti" icon="roti" />
-        <CategoryItem name="Mie" link="mie" icon="mie" />
-        <CategoryItem name="Susu" link="susu" icon="susu" />
-        <CategoryItem name="Minuman" link="minuman" icon="minuman" />
-        <CategoryItem name="Buah & Sayur" link="buah-sayur" icon="buah-sayur" />
-        <CategoryItem
-          name="Frozen Food"
-          link="frozen-food"
-          icon="frozen-food"
-        />
-        <CategoryItem
-          name="Daging & Ikan"
-          link="daging-ikan"
-          icon="daging-ikan"
-        />
-        <CategoryItem
-          name="Cleaning Aid"
-          link="cleaning-aid"
-          icon="cleaning-aid"
-        />
-        <CategoryItem
-          name="Health Care"
-          link="health-care"
-          icon="health-care"
-        />
-      </div>
+      <ListCategory />
       <div className="mx-4 mb-20 mt-5 grid grid-cols-2 justify-items-center gap-5">
         {products.map((product, index) => (
           <>
-            <div key={index}>
-              <ProductItem
-                name={product.name}
-                image={product.image}
-                unit={product.unit}
-                price={formatHarga(product.price)}
-              />
-            </div>
+            <ProductItem
+              key={index}
+              name={product.name}
+              image={product.image}
+              unit={product.unit}
+              price={formatHarga(product.price)}
+            />
           </>
         ))}
       </div>
-    </div>
+    </main>
   );
 }
