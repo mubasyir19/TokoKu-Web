@@ -6,7 +6,7 @@ export default function useFetchProductByCategory(category) {
   useEffect(() => {
     async function fetchDataProductByCategory() {
       const fetchData = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/product/${category}`,
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/product/category/${category}`,
       );
       const response = await fetchData.json();
       setDataProductByCategory(response.data);
