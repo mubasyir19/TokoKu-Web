@@ -1,5 +1,5 @@
-import { Component } from '@/components';
+import Splash from "@/components/organism/Splash";
 
 export default function Home() {
-  return <Component.Splash />;
+  return <Splash />;
 }

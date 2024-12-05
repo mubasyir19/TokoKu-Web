@@ -1,4 +1,4 @@
-import { Component } from "@/components";
+import BottomNav from "@/components/BottomNav/BottomNav";
 import { Poppins } from "next/font/google";
 import React from "react";
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
       <body className="relative mx-auto max-w-md">
         {/* <Component.Topbar /> */}
         <main className={`${poppins.className}`}>{children}</main>
-        <Component.BottomNav />
+        <BottomNav />
       </body>
     </html>
   );

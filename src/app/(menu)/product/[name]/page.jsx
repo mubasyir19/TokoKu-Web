@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import products from "../../../../services/products.json";
 import { formatHarga } from "@/helpers/utils";
 import Image from "next/image";
-import ShareButton from "@/components/ShareButton/ShareButton";
+import ShareButton from "@/components/organism/ShareButton";
 
 export default function DetailProduct() {
   const [productURL, setProductURL] = useState("");
