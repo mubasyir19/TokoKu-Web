@@ -1,4 +1,4 @@
-import BottomNav from "@/components/BottomNav/BottomNav";
+import BottomNav from "@/components/organism/BottomNav";
 import { Poppins } from "next/font/google";
 import React from "react";
 
