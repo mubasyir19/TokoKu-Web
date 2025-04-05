@@ -1,5 +1,6 @@
 "use client";
 
+import CartCard from "@/components/molecules/CartCard";
 import React, { useState } from "react";
 
 export default function Cart() {
@@ -18,7 +19,8 @@ export default function Cart() {
       {/* <p>This is Cart page</p> */}
       <h4 className="text-center text-2xl">My Cart</h4>
       <div className="mt-10">
-        <div className="card my-4 flex justify-between">
+        <CartCard />
+        {/* <div className="card my-4 flex justify-between">
           <div className="flex gap-x-4">
             <div className="my-auto h-[84px] w-[84px] rounded-lg bg-[#D9D9D9]"></div>
             <div className="my-auto text-sm">
@@ -91,7 +93,7 @@ export default function Cart() {
             <button className="h-6 w-6 rounded-lg bg-[#FFD600]">+</button>
           </div>
         </div>
-        <hr />
+        <hr /> */}
       </div>
       <div className="mt-10 flex justify-between">
         <div className="my-auto">

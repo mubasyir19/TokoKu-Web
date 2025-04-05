@@ -2,34 +2,32 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import products from "../../../../services/products.json";
 import { formatHarga } from "@/helpers/utils";
 import Image from "next/image";
-import ShareButton from "@/components/organism/ShareButton";
 
 export default function DetailProduct() {
-  const [productURL, setProductURL] = useState("");
+  // const [productURL, setProductURL] = useState("");
 
   const route = useRouter();
-  const router = useParams();
-  // console.log(router);
-  const productURI = router.name;
-  // console.log("ini produknya ", productURI.replace(/-/g, " "));
-  const sanitizedProduct = productURI.replace(/-/g, " ");
+  const param = useParams();
+  // console.log(param);
+  const productURI = decodeURIComponent(param.name);
+  // console.log("in produk URI decode =", productURI);
 
   const findProduct = (name) => {
     return products.find((product) => product.name === name);
   };
 
-  const product = findProduct(sanitizedProduct);
-  console.log("Data produk:", product);
+  const product = findProduct(productURI);
+  // console.log("Data produk:", product);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setProductURL(window.location.href);
-    }
-  }, [router.asPath]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     setProductURL(window.location.href);
+  //   }
+  // }, [param.asPath]);
 
   return (
     <section className="realtive py-0">
@@ -87,15 +85,6 @@ export default function DetailProduct() {
                 </p>
               </div>
             </div>
-            {/* <div className="mx-auto mt-4 w-1/2 gap-x-3">
-              <button className="w-full rounded-full bg-yellow-primary px-4 py-2 text-xs">
-                Keranjang
-              </button>
-              <ShareButton
-                url={productURL}
-                title="Checkout barang ini segera!"
-              />
-            </div> */}
             <p className="mt-7 text-base font-semibold text-black">
               Detail Produk
             </p>
