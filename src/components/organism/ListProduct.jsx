@@ -15,6 +15,7 @@ export default function ListProduct() {
       {dataProduct.map((product) => (
         <ProductItem
           key={product.id}
+          id={product.id}
           name={product.name}
           image={product.photo}
           unit={product.unit}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function ProductItem({ name, price, unit, image }) {
+export default function ProductItem({ id, name, price, unit, image }) {
   return (
     <div className="card-product">
       <Image
@@ -15,7 +15,7 @@ export default function ProductItem({ name, price, unit, image }) {
       />
       <div className="mt-2">
         {/* <Link href={`/product/${name.replace(/ /g, "-")}`}> */}
-        <Link href={`/product/${name}`}>
+        <Link href={`/product/${id}`}>
           <p className="line-clamp-1 text-sm">{name}</p>
         </Link>
         <p className="mt-1 text-xs font-semibold">
