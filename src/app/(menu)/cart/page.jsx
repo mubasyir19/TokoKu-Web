@@ -1,10 +1,12 @@
 "use client";
 
 import CartCard from "@/components/molecules/CartCard";
+import { useCartStore } from "@/store/cartStore";
 import React, { useState } from "react";
 
 export default function Cart() {
   const [count, setCount] = useState(1);
+  const { cart, fetchCart, removeCart } = useCartStore();
 
   const addCount = () => {
     setCount(count + 1);
@@ -19,7 +21,13 @@ export default function Cart() {
       {/* <p>This is Cart page</p> */}
       <h4 className="text-center text-2xl">My Cart</h4>
       <div className="mt-10">
-        <CartCard />
+        {cart.length > 0 ? (
+          cart.map((item) => <CartCard key={item.id} />)
+        ) : (
+          <div className="">
+            <p>Belum ada yang dimasukkan ke dalam keranjang</p>
+          </div>
+        )}
         {/* <div className="card my-4 flex justify-between">
           <div className="flex gap-x-4">
             <div className="my-auto h-[84px] w-[84px] rounded-lg bg-[#D9D9D9]"></div>
