@@ -6,12 +6,28 @@ import { useParams, useRouter } from "next/navigation";
 import { formatHarga } from "@/helpers/utils";
 import Image from "next/image";
 import useFetchDetailProduct from "@/hooks/Product/useFetchDetailProduct";
+import { useCartStore } from "@/store/cartStore";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
+import QuantitySelector from "@/components/molecules/QuantitySelector";
 
 export default function DetailProduct() {
   const { id } = useParams();
   const route = useRouter();
 
+  const [quantity, setQuantity] = useState(1);
+
+  const tokenAuth = Cookies.get("authToken");
+  const jwtToken = atob(tokenAuth);
+  const payload = jwtDecode(jwtToken);
+
   const { dataProduct } = useFetchDetailProduct(id);
+  const { addToCart } = useCartStore();
+
+  const handleAddToCart = () => {
+    addToCart(payload.id, dataProduct?.id, quantity);
+  };
 
   return (
     <section className="realtive py-0">
@@ -46,15 +62,16 @@ export default function DetailProduct() {
           </div>
           <div id="card-body" className="mt-4 px-5">
             <p className="text-2xl font-bold">{dataProduct?.name}</p>
-            {/* <p className="mt-2 text-black">{dataProduct.unit}</p> */}
+            <p className="mt-2 text-black">{dataProduct?.unit}</p>
             <div className="mt-7 flex items-center justify-between">
-              <div className="flex items-center gap-x-2">
+              {/* <div className="flex items-center gap-x-2">
                 <button className="text-4xl text-[#B3B3B3]">-</button>
                 <p className="rounded-lg border-2 border-[#EDEDED] px-4 py-2 text-lg text-black">
                   1
                 </p>
                 <button className="text-4xl text-[#FFD600]">+</button>
-              </div>
+              </div> */}
+              <QuantitySelector onChange={setQuantity} />
               <div className="">
                 <p className="text-lg font-bold text-black">
                   {formatHarga(dataProduct?.price)}
@@ -71,7 +88,10 @@ export default function DetailProduct() {
               <p className="">{dataProduct?.description}</p>
             </div>
             <div className="mt-8">
-              <button className="w-full rounded-lg bg-[#FFD600] py-4 font-semibold text-black">
+              <button
+                onClick={handleAddToCart}
+                className="w-full rounded-lg bg-[#FFD600] py-4 font-semibold text-black"
+              >
                 Tambah Ke Keranjang
               </button>
             </div>
