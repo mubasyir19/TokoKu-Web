@@ -1,27 +1,67 @@
 import { create } from "zustand";
 
 export const useCartStore = create((set) => ({
-  cart: [],
+  cart: {
+    totalItems: 0,
+    totalAmount: 0,
+    items: [],
+  },
+  isLoading: false,
   fetchCart: async (userId) => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
-    );
-    const data = await res.json();
-    set({ cart: data.data });
+    set({ isLoading: true });
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
+      );
+      const data = await res.json();
+      set({ cart: data.data });
+    } catch (error) {
+      console.error("Fetch cart failed:", error);
+    } finally {
+      set({ isLoading: false });
+    }
   },
   addToCart: async (userId, productId, quantity = 1) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, productId, quantity }),
-    });
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
-    );
-    const data = await res.json();
-    set({ cart: data.data });
+    set({ isLoading: true });
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, productId, quantity }),
+      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
+      );
+      const data = await res.json();
+      set({ cart: data.data });
+    } catch (error) {
+      console.error("Fetch cart failed:", error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  updateCartItem: async (userId, productId, quantity) => {
+    set({ isLoading: true });
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, productId, quantity }),
+      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
+      );
+      const data = await res.json();
+      set({ cart: data.data });
+    } catch (error) {
+      console.error("Fetch cart failed:", error);
+    } finally {
+      set({ isLoading: false });
+    }
   },
   removeFromCart: async (userId, productId) => {
     await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/delete`, {

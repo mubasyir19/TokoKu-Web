@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-// import products from "../../../../services/products.json";
 import { formatHarga } from "@/helpers/utils";
 import Image from "next/image";
 import useFetchDetailProduct from "@/hooks/Product/useFetchDetailProduct";
@@ -27,6 +26,7 @@ export default function DetailProduct() {
 
   const handleAddToCart = () => {
     addToCart(payload.id, dataProduct?.id, quantity);
+    route.push("/cart");
   };
 
   return (

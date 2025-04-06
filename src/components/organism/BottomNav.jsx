@@ -1,11 +1,13 @@
 "use client";
 
+import { useCartStore } from "@/store/cartStore";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { cart } = useCartStore();
   return (
     <nav
       className="shadow-3xl fixed bottom-5 left-0 right-0 z-10 mx-auto flex max-w-xs justify-around gap-x-2 rounded-full bg-yellow-300 p-1 text-gray-600"
@@ -82,7 +84,10 @@ export default function BottomNav() {
         </Link>
       )}
       {pathname === "/cart" ? (
-        <Link href="/cart" className="my-auto rounded-full bg-black p-3">
+        <Link
+          href="/cart"
+          className="relative my-auto rounded-full bg-black p-3"
+        >
           <svg
             width="23"
             height="23"
@@ -95,9 +100,14 @@ export default function BottomNav() {
               fill="white"
             />
           </svg>
+          {cart.totalItems > 0 && (
+            <div className="absolute -right-1 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
+              {cart.totalItems}
+            </div>
+          )}
         </Link>
       ) : (
-        <Link href="/cart" className="my-auto p-3">
+        <Link href="/cart" className="relative my-auto p-3">
           <svg
             width="23"
             height="23"
@@ -111,6 +121,11 @@ export default function BottomNav() {
               fillOpacity="0.5"
             />
           </svg>
+          {cart.totalItems > 0 && (
+            <div className="absolute -right-1 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
+              {cart.totalItems}
+            </div>
+          )}
         </Link>
       )}
       {pathname === "/transaction" ? (

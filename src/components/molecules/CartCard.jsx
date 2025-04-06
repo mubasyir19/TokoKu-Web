@@ -6,18 +6,24 @@ import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function CartCard({ productId, price, quantity, subTotal }) {
+export default function CartCard({ userId, productId, quantity, subTotal }) {
   const { dataProduct } = useFetchDetailProduct(productId);
-  const [count, setCount] = useState(1);
-  // const [totalPrice, setTotalPrice] = useState(0);
+  const [count, setCount] = useState(quantity);
+  const [total, setTotal] = useState(subTotal);
+  const updateCartItem = useCartStore((state) => state.updateCartItem);
 
-  const addCount = () => {
-    setCount(count + 1);
+  const updateQuantity = (newCount) => {
+    if (newCount < 1) return;
+
+    setCount(newCount);
+    const newSubtotal = newCount * dataProduct?.price;
+    setTotal(newSubtotal);
+
+    updateCartItem(userId, productId, newCount);
   };
 
-  const minCount = () => {
-    setCount(count - 1);
-  };
+  const addCount = () => updateQuantity(count + 1);
+  const minCount = () => updateQuantity(count - 1);
 
   return (
     <>
@@ -69,7 +75,7 @@ export default function CartCard({ productId, price, quantity, subTotal }) {
                 >
                   -
                 </button>
-                <p className="">{quantity}</p>
+                <p className="">{count}</p>
                 <button
                   onClick={addCount}
                   className="h-6 w-6 rounded-lg bg-[#FFD600]"
@@ -78,7 +84,7 @@ export default function CartCard({ productId, price, quantity, subTotal }) {
                 </button>
               </div>
               <div className="">
-                <p className="font-bold text-black">{formatHarga(subTotal)}</p>
+                <p className="font-bold text-black">{formatHarga(total)}</p>
               </div>
             </div>
           </div>
