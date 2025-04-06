@@ -1,11 +1,15 @@
 "use client";
 
 import { formatHarga } from "@/helpers/utils";
+import useFetchDetailProduct from "@/hooks/Product/useFetchDetailProduct";
+import { useCartStore } from "@/store/cartStore";
+import Image from "next/image";
 import React, { useState } from "react";
 
-export default function CartCard({ productName, price, subTotal }) {
+export default function CartCard({ productId, price, quantity, subTotal }) {
+  const { dataProduct } = useFetchDetailProduct(productId);
   const [count, setCount] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
 
   const addCount = () => {
     setCount(count + 1);
@@ -19,12 +23,24 @@ export default function CartCard({ productName, price, subTotal }) {
     <>
       <div className="card my-4 w-full">
         <div className="flex items-center gap-x-4">
-          <div className="h-[84px] w-[84px] rounded-lg bg-[#D9D9D9]"></div>
+          {dataProduct?.photo ? (
+            <Image
+              src={dataProduct?.photo}
+              width={84}
+              height={84}
+              alt="photo product"
+              className="object-cover"
+            />
+          ) : (
+            <div className="h-[84px] w-[84px] rounded-lg bg-[#D9D9D9]"></div>
+          )}
           <div className="my-auto flex-1 text-sm">
             <div className="flex items-center justify-between">
-              <div className="content">
-                <p className="font-semibold">Product Name</p>
-                <p className="mt-1 text-[#797979]">Rp12.000/pack</p>
+              <div className="content w-3/4">
+                <p className="font-semibold">{dataProduct?.name}</p>
+                <p className="mt-1 text-[#797979]">
+                  {formatHarga(dataProduct?.price)} {dataProduct?.unit}
+                </p>
               </div>
               <div className="">
                 <button>
@@ -53,7 +69,7 @@ export default function CartCard({ productName, price, subTotal }) {
                 >
                   -
                 </button>
-                <p className="">{count}</p>
+                <p className="">{quantity}</p>
                 <button
                   onClick={addCount}
                   className="h-6 w-6 rounded-lg bg-[#FFD600]"
@@ -62,9 +78,7 @@ export default function CartCard({ productName, price, subTotal }) {
                 </button>
               </div>
               <div className="">
-                <p className="font-bold text-black">
-                  {formatHarga(totalPrice)}
-                </p>
+                <p className="font-bold text-black">{formatHarga(subTotal)}</p>
               </div>
             </div>
           </div>

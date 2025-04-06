@@ -1,12 +1,20 @@
 "use client";
 
 import CartCard from "@/components/molecules/CartCard";
+import { formatHarga } from "@/helpers/utils";
+import useAuthPayload from "@/hooks/Auth/useAuthPayload";
 import { useCartStore } from "@/store/cartStore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Cart() {
+  const { payload } = useAuthPayload();
+
   const [count, setCount] = useState(1);
-  const { cart, fetchCart, removeCart } = useCartStore();
+  const { cart, fetchCart } = useCartStore();
+
+  useEffect(() => {
+    fetchCart(payload?.id);
+  }, [fetchCart, payload?.id]);
 
   const addCount = () => {
     setCount(count + 1);
@@ -21,8 +29,17 @@ export default function Cart() {
       {/* <p>This is Cart page</p> */}
       <h4 className="text-center text-2xl">My Cart</h4>
       <div className="mt-10">
-        {cart.length > 0 ? (
-          cart.map((item) => <CartCard key={item.id} />)
+        {/* <CartCard /> */}
+        {cart.totalItems > 0 ? (
+          cart.items.map((item) => (
+            <CartCard
+              key={item.id}
+              idCart={item.id}
+              productId={item.productId}
+              quantity={item.quantity}
+              subTotal={item.totalPrice}
+            />
+          ))
         ) : (
           <div className="">
             <p>Belum ada yang dimasukkan ke dalam keranjang</p>
@@ -106,7 +123,8 @@ export default function Cart() {
       <div className="mt-10 flex justify-between">
         <div className="my-auto">
           <p className="text-sm">Total</p>
-          <p className="text-xl font-bold">Rp480.000</p>
+          <p className="text-xl font-bold">{formatHarga(cart.totalAmount)}</p>
+          {/* <p className="text-xl font-bold">Rp480.000</p> */}
         </div>
         <div className="my-auto">
           <button className="rounded-lg bg-yellow-300 px-4 py-2 font-semibold hover:bg-yellow-primary">
