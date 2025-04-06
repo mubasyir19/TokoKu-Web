@@ -40,7 +40,7 @@ export default function useLoginForm() {
       console.log("Hasil request login = ", data);
 
       if (response.ok) {
-        const tokenBase64 = btoa(data.access_token);
+        const tokenBase64 = btoa(data.data.access_token);
         Cookies.set("authToken", tokenBase64, {
           expires: 7,
           secure: true,
