@@ -8,24 +8,42 @@ import useFetchDetailProduct from "@/hooks/Product/useFetchDetailProduct";
 import { useCartStore } from "@/store/cartStore";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuantitySelector from "@/components/molecules/QuantitySelector";
 
 export default function DetailProduct() {
   const { id } = useParams();
   const route = useRouter();
 
+  const [payloadUser, setPayloadUser] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  const tokenAuth = Cookies.get("authToken");
-  const jwtToken = atob(tokenAuth);
-  const payload = jwtDecode(jwtToken);
+  useEffect(() => {
+    const tokenAuth = Cookies.get("authToken");
+
+    if (tokenAuth) {
+      try {
+        const jwtToken = atob(tokenAuth);
+        const payload = jwtDecode(jwtToken);
+        setPayloadUser(payload);
+      } catch (err) {
+        console.error("Token tidak valid:", err);
+        setPayloadUser(null);
+      }
+    } else {
+      setPayloadUser(null); // belum login
+    }
+  }, []);
 
   const { dataProduct } = useFetchDetailProduct(id);
   const { addToCart } = useCartStore();
 
   const handleAddToCart = () => {
-    addToCart(payload.id, dataProduct?.id, quantity);
+    if (!payloadUser) {
+      alert("Silakan login terlebih dahulu");
+      return;
+    }
+    addToCart(payloadUser.id, dataProduct?.id, quantity);
     route.push("/cart");
   };
 
