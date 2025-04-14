@@ -6,11 +6,18 @@ import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function CartCard({ userId, productId, quantity, subTotal }) {
+export default function CartCard({
+  idCart,
+  userId,
+  productId,
+  quantity,
+  subTotal,
+}) {
   const { dataProduct } = useFetchDetailProduct(productId);
   const [count, setCount] = useState(quantity);
   const [total, setTotal] = useState(subTotal);
   const updateCartItem = useCartStore((state) => state.updateCartItem);
+  const { removeFromCart } = useCartStore();
 
   const updateQuantity = (newCount) => {
     if (newCount < 1) return;
@@ -24,6 +31,10 @@ export default function CartCard({ userId, productId, quantity, subTotal }) {
 
   const addCount = () => updateQuantity(count + 1);
   const minCount = () => updateQuantity(count - 1);
+
+  const handleRemoveItem = async () => {
+    await removeFromCart(userId, idCart);
+  };
 
   return (
     <>
@@ -49,7 +60,7 @@ export default function CartCard({ userId, productId, quantity, subTotal }) {
                 </p>
               </div>
               <div className="">
-                <button>
+                <button onClick={handleRemoveItem}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

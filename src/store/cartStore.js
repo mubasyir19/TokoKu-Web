@@ -63,18 +63,26 @@ export const useCartStore = create((set) => ({
       set({ isLoading: false });
     }
   },
-  removeFromCart: async (userId, productId) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/delete`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId, productId }),
-    });
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
-    );
-    const data = await res.json();
-    set({ cart: data.data });
+  removeFromCart: async (userId, idCart) => {
+    set({ isLoading: true });
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({ userId, productId }),
+        body: JSON.stringify({ idCart }),
+      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
+      );
+      const data = await res.json();
+      set({ cart: data.data });
+    } catch (error) {
+      console.error("Remove item failed:", error);
+    } finally {
+      set({ isLoading: false });
+    }
   },
 }));
