@@ -4,15 +4,22 @@ import CartCard from "@/components/molecules/CartCard";
 import { formatHarga } from "@/helpers/utils";
 import useAuthPayload from "@/hooks/Auth/useAuthPayload";
 import { useCartStore } from "@/store/cartStore";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 export default function Cart() {
   const { payload } = useAuthPayload();
   const { cart, fetchCart, isLoading } = useCartStore();
+  const route = useRouter();
 
   useEffect(() => {
     if (payload?.id) fetchCart(payload.id);
   }, [fetchCart, payload?.id]);
+
+  const handleCheckout = () => {
+    localStorage.setItem("totalAmount", cart.totalAmount);
+    route.push("/order");
+  };
 
   return (
     <div className="px-5 pt-5">
@@ -43,7 +50,10 @@ export default function Cart() {
           <p className="text-xl font-bold">{formatHarga(cart.totalAmount)}</p>
         </div>
         <div className="my-auto">
-          <button className="rounded-lg bg-yellow-300 px-4 py-2 font-semibold hover:bg-yellow-primary">
+          <button
+            onClick={handleCheckout}
+            className="rounded-lg bg-yellow-300 px-4 py-2 font-semibold hover:bg-yellow-primary"
+          >
             Checkout
           </button>
         </div>

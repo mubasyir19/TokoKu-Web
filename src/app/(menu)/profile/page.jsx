@@ -1,5 +1,7 @@
 "use client";
 
+import useAuthPayload from "@/hooks/Auth/useAuthPayload";
+import useFetchProfile from "@/hooks/Auth/useFetchProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,7 +9,10 @@ import React, { useState } from "react";
 
 export default function Profile() {
   const [openPopUpLogout, setOpenPopUpLogout] = useState(false);
+  const { payload } = useAuthPayload();
+  const { dataProfile } = useFetchProfile(payload?.username);
   const router = useRouter();
+
   return (
     <>
       <div className="relative px-5 pt-5">
@@ -20,10 +25,8 @@ export default function Profile() {
             className="mx-auto rounded-full"
             alt="image profile"
           />
-          <p className="mt-4 font-semibold">Mahdy Mubasyir</p>
-          <p className="mt-2 text-xs text-[#ABABAB]">
-            Jl. Kemangsari 1, gg.H.Wahab 1 no.36A, Jatibening Baru, Bekasi
-          </p>
+          <p className="mt-4 font-semibold">{payload?.name}</p>
+          <p className="mt-2 text-xs text-[#ABABAB]">{dataProfile?.address}</p>
         </div>
         <div className="list-menu mt-10">
           <div className="menu my-4 flex justify-between">

@@ -5,14 +5,18 @@ import { formatHarga } from "@/helpers/utils";
 import products from "../../../services/products.json";
 import ListCategory from "@/components/organism/ListCategory";
 import ListProduct from "@/components/organism/ListProduct";
+import useAuthPayload from "@/hooks/Auth/useAuthPayload";
+import Image from "next/image";
 
 export default function Home() {
+  const { payload } = useAuthPayload();
+  console.log(payload);
   return (
     <main className="bg-white pb-40">
       <div className="flex justify-between px-4 pt-5">
         <div>
           <p>Selamat Datang</p>
-          <h4 className="text-2xl font-semibold">Mahdy Mubasyir</h4>
+          <h4 className="text-2xl font-semibold">{payload?.name}</h4>
         </div>
         {/* <h4 className='text-2xl font-semibold'>Selamat Datang</h4> */}
         <div className="my-auto">
@@ -31,7 +35,14 @@ export default function Home() {
         </div>
       </div>
       <div className="mt-5 px-4">
-        <div className="h-36 w-full rounded-xl bg-[#D9D9D9]"></div>
+        {/* <div className="h-36 w-full rounded-xl bg-[#D9D9D9]"></div> */}
+        <Image
+          src="/images/banner.png"
+          width={390}
+          height={149}
+          alt="banner"
+          className="h-36 w-full rounded-xl"
+        />
       </div>
       <ListCategory />
       <ListProduct />
