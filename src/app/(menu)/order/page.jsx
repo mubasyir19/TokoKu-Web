@@ -16,8 +16,9 @@ export default function OrderPage() {
 
   // const [address, setAddress] = useState("");
   // const [phoneNumber, setPhoneNumber] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
 
+  const [paymentMethod, setPaymentMethod] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const route = useRouter();
@@ -57,8 +58,12 @@ export default function OrderPage() {
       console.log("hasil checkout = ", response.data);
 
       if (!response.ok) throw Error("Gagal checkout");
-      // clearCart();
-      route.push("/order/success");
+
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        route.push("/transaction");
+      }, 2000);
     } catch (error) {
       alert("Checkout gagal");
       console.error(error);
@@ -171,6 +176,30 @@ export default function OrderPage() {
           Pesan Sekarang
         </button>
       </div>
+      {showSuccessPopup && (
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          {/* Popup */}
+          <div className="w-3/4 max-w-sm rounded-xl bg-white p-6 shadow-xl">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="#3AFD20"
+              className="mx-auto size-36"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <p className="text-center text-xl font-semibold text-black">
+              Pesanan berhasil di checkout
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
