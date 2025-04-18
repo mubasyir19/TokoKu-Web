@@ -22,7 +22,7 @@ export default function Cart() {
   };
 
   return (
-    <div className="px-5 pt-5">
+    <div className="px-5 pb-40 pt-5">
       <h4 className="text-center text-2xl">My Cart</h4>
       <div className="mt-10">
         {isLoading ? (

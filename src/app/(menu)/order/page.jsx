@@ -17,7 +17,7 @@ export default function OrderPage() {
   // const [address, setAddress] = useState("");
   // const [phoneNumber, setPhoneNumber] = useState("");
 
-  const [paymentMethod, setPaymentMethod] = useState(false);
+  const [methodPayment, setMethodPayment] = useState("");
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -27,8 +27,6 @@ export default function OrderPage() {
   const deliveryFee = 10000;
   const adminFee = 5000;
   const finalPrice = totalAmount + deliveryFee + adminFee;
-
-  // const totalPrice = cart.reduce((acc, item) => acc + item.subTotal, 0);
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -44,7 +42,7 @@ export default function OrderPage() {
             userId: payload?.id,
             address: dataProfile?.address,
             phoneNumber: dataProfile?.phoneNumber,
-            paymentMethod,
+            methodPayment,
             items: cart.items.map((item) => ({
               productId: item.productId,
               quantity: item.quantity,
@@ -152,21 +150,30 @@ export default function OrderPage() {
       <div className="mt-6 rounded-lg border border-gray-400 p-2">
         <p className="my-2 text-lg font-semibold text-black">Payment Method</p>
         <hr className="my-1 bg-gray-500" />
-        <form className="mt-4">
+        <div className="mt-4">
           <div className="flex items-center gap-x-2">
-            <input type="radio" id="cash" name="paymentMethod" value="Cash" />
+            <input
+              type="radio"
+              id="cash"
+              name="methodPayment"
+              value="Cash"
+              checked={methodPayment === "Cash"}
+              onChange={(e) => setMethodPayment(e.target.value)}
+            />
             <label htmlFor="cash">Cash</label>
           </div>
           <div className="flex items-center gap-x-2">
             <input
               type="radio"
               id="transfer"
-              name="paymentMethod"
+              name="methodPayment"
               value="Transfer"
+              checked={methodPayment === "Transfer"}
+              onChange={(e) => setMethodPayment(e.target.value)}
             />
             <label htmlFor="transfer">Transfer</label>
           </div>
-        </form>
+        </div>
       </div>
       <div className="mt-6">
         <button

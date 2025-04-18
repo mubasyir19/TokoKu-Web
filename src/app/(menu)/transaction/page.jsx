@@ -74,7 +74,13 @@ export default function Transaction() {
                             <div className="size-3 rounded-full bg-yellow-400"></div>
                             <p className="text-xs">{item.status}</p>
                           </div>
-                          <p className="mt-1 text-xs text-gray-400">
+                          <p className="mt-1 line-clamp-1 text-xs text-gray-400">
+                            {item.OrderItem.map((data, index) => (
+                              <span key={index}>
+                                {data.product.name}
+                                {`, `}
+                              </span>
+                            ))}
                             telur curah, ayam potong, susu kambing
                           </p>
                         </div>
