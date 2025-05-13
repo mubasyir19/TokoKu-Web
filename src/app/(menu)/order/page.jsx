@@ -1,6 +1,7 @@
 "use client";
 
 import OrderCard from "@/components/molecules/OrderCard";
+import { getTokenCookies } from "@/helpers/token";
 import { formatHarga } from "@/helpers/utils";
 import useAuthPayload from "@/hooks/Auth/useAuthPayload";
 import useFetchProfile from "@/hooks/Auth/useFetchProfile";
@@ -30,6 +31,7 @@ export default function OrderPage() {
 
   const handleCheckout = async () => {
     setLoading(true);
+    const jwtToken = getTokenCookies();
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart/checkout`,
@@ -37,6 +39,7 @@ export default function OrderPage() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
           },
           body: JSON.stringify({
             userId: payload?.id,

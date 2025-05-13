@@ -1,23 +1,5 @@
+import { getTokenCookies } from "@/helpers/token";
 import { create } from "zustand";
-
-function getTokenCookies() {
-  if (typeof document === "undefined") return null; // pastikan ini tidak dijalankan di server
-
-  const match = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("authToken="));
-
-  if (!match) return null;
-
-  const token = match.split("=")[1];
-  try {
-    const jwt = atob(token); // decode Base64 (hanya jika kamu encode dengan btoa)
-    return jwt;
-  } catch (error) {
-    console.error("Invalid Base64 token", error);
-    return null;
-  }
-}
 
 export const useCartStore = create((set) => ({
   cart: {
