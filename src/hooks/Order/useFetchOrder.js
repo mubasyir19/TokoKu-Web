@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAuthPayload from "../Auth/useAuthPayload";
+import { getTokenCookies } from "@/helpers/token";
 
 export default function useFetchOrder() {
   const [dataOrder, setDataOrder] = useState([]);
@@ -11,9 +12,16 @@ export default function useFetchOrder() {
   useEffect(() => {
     async function fetchDataOrder() {
       setLoading(true);
+      const jwtToken = getTokenCookies();
+
       try {
         const fetchData = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/order/${payload?.id}`,
+          `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/order/${payload.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          },
         );
         const response = await fetchData.json();
         console.log("res = ", response);

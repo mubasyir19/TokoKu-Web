@@ -81,7 +81,7 @@ export default function Transaction() {
                                 {`, `}
                               </span>
                             ))}
-                            telur curah, ayam potong, susu kambing
+                            {/* telur curah, ayam potong, susu kambing */}
                           </p>
                         </div>
                         <div className="">
