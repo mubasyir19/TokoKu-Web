@@ -43,12 +43,14 @@ export default function OrderPage() {
             address: dataProfile?.address,
             phoneNumber: dataProfile?.phoneNumber,
             methodPayment,
+            admin_fee: adminFee,
+            shipping_fee: deliveryFee,
             items: cart.items.map((item) => ({
               productId: item.productId,
               quantity: item.quantity,
               subTotal: parseInt(item.totalPrice),
             })),
-            price: finalPrice,
+            total_price: finalPrice,
           }),
         },
       );

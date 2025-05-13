@@ -39,7 +39,7 @@ export default function Transaction() {
       <section className="pb-40 pt-8">
         {openTab === "ongoing" && (
           <div className="">
-            {dataOrder.length > 0 ? (
+            {dataOrder?.length > 0 ? (
               <div>
                 {dataOrder.map((item) => (
                   <div key={item.id} id="CardOrder" className="mb-2 w-full">
@@ -57,14 +57,14 @@ export default function Transaction() {
                         </div>
                         <div className="">
                           <p className="text-sm text-black">
-                            {formatHarga(item.price)}
+                            {formatHarga(item.total_price)}
                           </p>
                         </div>
                       </div>
                       <hr />
                       <div className="my-2 flex items-center justify-between">
                         <p className="line-clamp-1 w-1/2 text-xs">
-                          Order ID: {item.id}
+                          Order ID: {item.order_code}
                         </p>
                         <p className="text-xs">14 April 2025 | 21:56</p>
                       </div>

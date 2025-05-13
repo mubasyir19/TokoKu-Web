@@ -29,7 +29,7 @@ export default function Cart() {
           <div className="flex items-center justify-center">
             <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-t-2 border-yellow-500"></div>
           </div>
-        ) : cart.totalItems > 0 ? (
+        ) : cart && cart.totalItems > 0 ? (
           cart.items.map((item) => (
             <CartCard
               key={item.id}
@@ -40,14 +40,14 @@ export default function Cart() {
               subTotal={item.totalPrice}
             />
           ))
-        ) : cart.totalItems === 0 ? (
+        ) : cart && cart.totalItems === 0 ? (
           <p>Belum ada yang dimasukkan ke dalam keranjang</p>
         ) : null}
       </div>
       <div className="mt-10 flex justify-between">
         <div className="my-auto">
           <p className="text-sm">Total</p>
-          <p className="text-xl font-bold">{formatHarga(cart.totalAmount)}</p>
+          <p className="text-xl font-bold">{formatHarga(cart?.totalAmount)}</p>
         </div>
         <div className="my-auto">
           <button

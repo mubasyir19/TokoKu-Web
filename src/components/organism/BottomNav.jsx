@@ -100,9 +100,9 @@ export default function BottomNav() {
               fill="white"
             />
           </svg>
-          {cart.totalItems > 0 && (
+          {cart?.totalItems > 0 && (
             <div className="absolute -right-1 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
-              {cart.totalItems}
+              {cart?.totalItems}
             </div>
           )}
         </Link>
@@ -121,9 +121,9 @@ export default function BottomNav() {
               fillOpacity="0.5"
             />
           </svg>
-          {cart.totalItems > 0 && (
+          {cart?.totalItems > 0 && (
             <div className="absolute -right-1 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-xs font-semibold text-white">
-              {cart.totalItems}
+              {cart?.totalItems}
             </div>
           )}
         </Link>

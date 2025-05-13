@@ -6,12 +6,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Cookies from "js-cookie";
+import { useAuth } from "@/hooks/Auth/useAuth";
 
 export default function Profile() {
   const [openPopUpLogout, setOpenPopUpLogout] = useState(false);
   const { payload } = useAuthPayload();
   const { dataProfile } = useFetchProfile(payload?.username);
+  const { isLoggedIn } = useAuth();
   const router = useRouter();
+
+  const handleLogout = () => {
+    Cookies.remove("authToken");
+    router.push("/home");
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div className="px-5 text-center">
+        <div className="">
+          <h1 className="mt-10 text-3xl font-semibold">Login Dahulu</h1>
+          <p className="mt-10 text-base text-[#797979]">
+            Untuk melihat profil pengguna, kamu harus login dulu
+          </p>
+          <Image
+            src="/images/illustration.png"
+            height={300}
+            width={300}
+            className="mx-auto my-10"
+            alt="illustration"
+          />
+          <button
+            type="button"
+            onClick={() => router.push("/login")}
+            className="w-3/4 rounded-full bg-yellow-300 py-2 font-semibold hover:bg-yellow-primary"
+          >
+            Silakan Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -158,7 +193,6 @@ export default function Profile() {
           </div>
           <hr />
         </div>
-        {/* Pop up logout */}
         <div
           className={`${openPopUpLogout ? "fixed inset-0 z-50 flex items-center justify-center" : "hidden"}`}
         >
@@ -181,7 +215,10 @@ export default function Profile() {
             <h3 className="mt-6 text-2xl font-semibold">Konfirmasi Logout</h3>
             <p className="mt-3">Apakah Anda yakin ingin keluar?</p>
             <div className="mt-8 flex justify-center gap-x-4">
-              <button className="rounded-lg bg-red-500 px-4 py-2 text-sm text-white shadow-lg">
+              <button
+                onClick={handleLogout}
+                className="rounded-lg bg-red-500 px-4 py-2 text-sm text-white shadow-lg"
+              >
                 Logout
               </button>
               <button
@@ -209,20 +246,6 @@ export default function Profile() {
         </div> */}
       </div>
       {/* Halaman yang tampil jika belum login */}
-      {/* <div className='px-5 text-center'>
-        <div className=''>
-          <h1 className='mt-10 text-3xl font-semibold'>Login Dahulu</h1>
-          <p className='mt-10 text-base text-[#797979]'>Untuk melihat profil pengguna, kamu harus login dulu</p>
-          <Image src='/images/illustration.png' height={300} width={300} className='my-10 mx-auto' alt='illustration' />
-          <button
-            type='button'
-            onClick={() => router.push('/login')}
-            className='w-3/4 py-2 font-semibold bg-yellow-300 hover:bg-yellow-primary rounded-full'
-          >
-            Silakan Login
-          </button>
-        </div>
-      </div> */}
     </>
   );
 }
