@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "@/hooks/Auth/useAuth";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 export default function Profile() {
   const [openPopUpLogout, setOpenPopUpLogout] = useState(false);
@@ -53,13 +54,19 @@ export default function Profile() {
       <div className="relative px-5 pt-5">
         <h4 className="text-center text-2xl">Profile</h4>
         <div className="mx-auto mt-12 w-60 text-center">
-          <Image
-            src="/images/profile.png"
-            width={100}
-            height={100}
-            className="mx-auto rounded-full"
-            alt="image profile"
-          />
+          {dataProfile?.photo ? (
+            <Image
+              src={dataProfile?.photo}
+              width={100}
+              height={100}
+              className="mx-auto rounded-full"
+              alt="image profile"
+            />
+          ) : (
+            <div className="">
+              <UserCircleIcon className="mx-auto size-20 text-[#ABABAB]" />
+            </div>
+          )}
           <p className="mt-4 font-semibold">{payload?.name}</p>
           <p className="mt-2 text-xs text-[#ABABAB]">{dataProfile?.address}</p>
         </div>
