@@ -41,3 +41,35 @@ export const formatDateTime = (utcString) => {
 
   return `${day} ${month} ${year} | ${hours}:${minutes}`;
 };
+
+export const getStatusOrderStyle = (status) => {
+  switch (status) {
+    case "PENDING":
+      return {
+        colorStatus: "bg-yellow-500",
+        textStatus: "Menunggu pesanan diproses",
+      };
+    case "PROCESSING":
+      return {
+        colorStatus: "bg-orange-500",
+        textStatus: "Pesananmu sedang diproses",
+      };
+    case "SHIPPED":
+      return {
+        colorStatus: "bg-sky-500",
+        textStatus: "Pesananmu sedang diantar",
+      };
+    case "DELIVERED":
+      return {
+        colorStatus: "bg-emerald-500",
+        textStatus: "Pesananmu sudah diterima",
+      };
+    case "CANCELLED":
+      return { colorStatus: "bg-red-500", textStatus: "Pesanan dibatalkan" };
+    default:
+      return {
+        colorStatus: "bg-gray-400",
+        textStatus: "Status tidak diketahui",
+      };
+  }
+};

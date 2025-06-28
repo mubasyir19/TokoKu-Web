@@ -1,20 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { MapPinIcon } from "@heroicons/react/24/outline";
-import { formatHarga } from "@/helpers/utils";
+import {
+  formatDateTime,
+  formatHarga,
+  getStatusOrderStyle,
+} from "@/helpers/utils";
+import useFetchDetailOrder from "@/hooks/Order/useFetchDetailOrder";
+import LoadingModals from "@/components/molecules/LoadingModals";
 
 export default function DetailOrder() {
   const [copied, setCopied] = useState("");
   const route = useRouter();
+  const { orderCode } = useParams();
+  const { dataOrder, loadingOrder, error } = useFetchDetailOrder(orderCode);
+  const { colorStatus, textStatus } = getStatusOrderStyle(dataOrder.status);
 
   const handleCopy = (text, label) => {
     navigator.clipboard.writeText(text);
     setCopied(label);
     // setTimeout(() => setCopied(""), 2000);
   };
+
+  const totalPriceOrderItem = Array.isArray(dataOrder.OrderItem)
+    ? dataOrder.OrderItem.reduce((total, item) => {
+        const price = Number(item.product?.price) || 0;
+        const quantity = Number(item.quantity) || 0;
+        return total + price * quantity;
+      }, 0)
+    : 0;
+
+  if (loadingOrder) {
+    return <LoadingModals />;
+  }
 
   return (
     <div className="relative px-5 pb-40 pt-5">
@@ -35,22 +56,15 @@ export default function DetailOrder() {
         <div className="text-xl font-semibold capitalize">DetailPesanan</div>
       </div>
       <div className="mt-6 rounded-lg border border-gray-400">
-        {/* <p className="bg-yellow-500 rounded-t-lg p-2 text-base font-medium text-white">
-          Menunggu pesanan di proses
-        </p> */}
-        {/* <p className="rounded-t-lg bg-orange-500 p-2 text-base font-medium text-white">
-          Pesananmu sedang di proses
-        </p> */}
-        {/* <p className="rounded-t-lg bg-sky-500 p-2 text-base font-medium text-white">
-          Pesananmu sedang diantar
-        </p> */}
-        <p className="rounded-t-lg bg-emerald-500 p-2 text-base font-medium text-white">
-          Pesananmu Sudah Diterima
+        <p
+          className={`rounded-t-lg ${colorStatus} p-2 text-base font-medium text-white`}
+        >
+          {textStatus}
         </p>
         <div className="p-2">
           <div className="flex items-center gap-2">
             <p className="text-base font-bold text-black">
-              Pesanan <span className="bg-[#FEDB22]">TK-712959</span>
+              Pesanan <span className="bg-[#FEDB22]">{orderCode}</span>
             </p>
             <button
               onClick={() => handleCopy("TK-712959", "kode")}
@@ -62,13 +76,15 @@ export default function DetailOrder() {
           <div className="mt-1 space-y-1">
             <div className="flex items-center text-sm">
               <p className="w-36">Nama Pemesan</p>
-              <p>: Mahdy Mubasyir</p>
+              <p>: {dataOrder?.user?.name}</p>
             </div>
-            <div className="flex items-center text-sm">
+            <div className="flex items-center gap-2 text-sm">
               <p className="w-36">Nomor Telepon</p>
-              <p>: +6287774026818</p>
+              <p>: {dataOrder?.user?.phoneNumber}</p>
               <button
-                onClick={() => handleCopy("+6287774026818", "telepon")}
+                onClick={() =>
+                  handleCopy(dataOrder?.user?.phoneNumber, "telepon")
+                }
                 className="rounded-md bg-slate-200 px-1 py-0.5 text-[10px] text-black"
               >
                 Salin
@@ -83,13 +99,9 @@ export default function DetailOrder() {
               <MapPinIcon className="size-6 text-yellow-primary" />
             </div>
             <div className="flex-1">
-              {/* <p className="text-sm font-medium text-black">
-                Mahdy Mubasyir{" "}
-                <span className="text-xs text-black text-opacity-50">
-                  +6287774026818
-                </span>
-              </p> */}
-              <p className="mt-0.5 text-xs text-black">Jatibening, Bekasi</p>
+              <p className="mt-0.5 text-xs text-black">
+                {dataOrder?.user?.address}
+              </p>
             </div>
           </div>
         </div>
@@ -98,30 +110,31 @@ export default function DetailOrder() {
         <p className="my-2 text-lg font-semibold text-black">Produk Pesanan</p>
         <hr className="my-1 bg-gray-500" />
         <div className="mt-4 flex flex-col gap-2">
-          <div className="">
-            <div className="flex items-center gap-3">
+          {dataOrder.OrderItem.map((item) => (
+            <div id="card" key={item.id} className="flex items-center gap-3">
               <Image
-                src={`https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/8/4/a92cd594-b303-4a66-a1b4-0c2be98ea260.jpg.webp?ect=4g`}
+                src={item.product.photo}
+                // src={`https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/8/4/a92cd594-b303-4a66-a1b4-0c2be98ea260.jpg.webp?ect=4g`}
                 width={100}
                 height={100}
                 alt="photo product"
                 className="size-16"
                 unoptimized
               />
-              <div className="">
+              <div className="flex-1">
                 <p
                   title="Rexus Keyboard Gaming Mechanical Leginore Mx9"
-                  className="line-clamp-1 text-base font-semibold text-black"
+                  className="line-clamp-1 text-sm font-semibold text-black"
                 >
-                  Rexus Keyboard Gaming Mechanical Leginore Mx9
+                  {item.product.name}
                 </p>
-                <p className="text-sm text-black">Quantity : 1</p>
-                <p className="mt-4 text-end text-base font-semibold text-black">
-                  {formatHarga(425000)}
+                <p className="text-xs text-black">Quantity : {item.quantity}</p>
+                <p className="mt-4 text-end text-sm font-semibold text-black">
+                  {formatHarga(item.subTotal)}
                 </p>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
       <div className="mt-6 rounded-lg border border-gray-400 p-2">
@@ -131,21 +144,25 @@ export default function DetailOrder() {
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm text-black">Harga</p>
             <p className="text-sm font-medium text-black">
-              {formatHarga(425000)}
+              {formatHarga(totalPriceOrderItem)}
             </p>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm text-black">Biaya Pengiriman</p>
-            <p className="text-sm font-medium text-black">Rp 8.000</p>
+            <p className="text-sm font-medium text-black">
+              {formatHarga(dataOrder?.shipping_fee)}
+            </p>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm text-black">Biaya Layanan</p>
-            <p className="text-sm font-medium text-black">Rp 1.000</p>
+            <p className="text-sm font-medium text-black">
+              {formatHarga(dataOrder?.admin_fee)}
+            </p>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm font-semibold text-black">Total Akhir</p>
             <p className="text-sm font-bold text-black">
-              {formatHarga(444000)}
+              {formatHarga(dataOrder?.total_price)}
             </p>
           </div>
         </div>
@@ -155,24 +172,32 @@ export default function DetailOrder() {
         <hr className="my-1 bg-gray-500" />
         <div className="mt-2 flex items-center justify-between">
           <p className="text-sm text-black">Metode Pembayaran</p>
-          <p className="text-sm font-medium text-black">Cash</p>
+          <p className="text-sm font-medium text-black">
+            {dataOrder?.methodPayment}
+          </p>
         </div>
         <div className="mt-4">
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm text-black">Waktu Pemesanan</p>
-            <p className="text-sm font-medium text-black">07-01-2024 15:51</p>
-          </div>
-          <div className="mt-2 flex items-center justify-between">
-            <p className="text-sm text-black">Waktu Pembayaran</p>
-            <p className="text-sm font-medium text-black">07-01-2024 15:53</p>
+            <p className="text-sm font-medium text-black">
+              {formatDateTime(dataOrder?.order_date)}
+            </p>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm text-black">Waktu Pengiriman</p>
-            <p className="text-sm font-medium text-black">08-01-2024 17:38</p>
+            <p className="text-sm font-medium text-black">
+              {dataOrder?.delivered_date
+                ? formatDateTime(dataOrder.delivered_date)
+                : "-"}
+            </p>
           </div>
           <div className="mt-2 flex items-center justify-between">
             <p className="text-sm text-black">Waktu Pesanan Selesai</p>
-            <p className="text-sm font-medium text-black">09-01-2024 11:12</p>
+            <p className="text-sm font-medium text-black">
+              {dataOrder?.completed_date
+                ? formatDateTime(dataOrder.completed_date)
+                : "-"}
+            </p>
           </div>
         </div>
       </div>
