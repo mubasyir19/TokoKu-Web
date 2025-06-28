@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingModals from "@/components/molecules/LoadingModals";
-import { formatHarga } from "@/helpers/utils";
+import { formatHarga, formatDateTime } from "@/helpers/utils";
 import useFetchOrder from "@/hooks/Order/useFetchOrder";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -75,7 +75,10 @@ export default function Transaction() {
                           <p className="line-clamp-1 w-1/2 text-xs">
                             Order ID: {item.order_code}
                           </p>
-                          <p className="text-xs">14 April 2025 | 21:56</p>
+                          <p className="text-xs">
+                            {formatDateTime(item.order_date)}
+                          </p>
+                          {/* <p className="text-xs">14 April 2025 | 21:56</p> */}
                         </div>
                         <div className="mt-4 flex items-center justify-between">
                           <div className="w-3/4">
