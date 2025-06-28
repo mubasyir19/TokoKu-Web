@@ -12,16 +12,18 @@ export default function ListProduct() {
 
   return (
     <section className="mx-4 mb-20 mt-5 grid grid-cols-2 justify-items-center gap-5">
-      {dataProduct.map((product) => (
-        <ProductItem
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          image={product.photo}
-          unit={product.unit}
-          price={formatHarga(product.price)}
-        />
-      ))}
+      {[...dataProduct]
+        .sort(() => Math.random() - 0.5)
+        .map((product) => (
+          <ProductItem
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            image={product.photo}
+            unit={product.unit}
+            price={formatHarga(product.price)}
+          />
+        ))}
     </section>
   );
 }

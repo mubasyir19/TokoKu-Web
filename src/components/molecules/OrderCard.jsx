@@ -17,6 +17,7 @@ export default function OrderCard({
             height={100}
             alt="photo product"
             className="size-16"
+            unoptimized
           />
           <div className="">
             <p className="line-clamp-1 text-base font-semibold text-black">

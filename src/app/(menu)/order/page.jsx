@@ -87,6 +87,7 @@ export default function OrderPage() {
           height={20}
           alt="arrow"
           className="h-4 w-4"
+          unoptimized
         />
       </button>
       <div className="py-4 text-center">

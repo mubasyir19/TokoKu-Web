@@ -12,6 +12,7 @@ export default function ProductItem({ id, name, price, unit, image }) {
         loading="lazy"
         src={image}
         className="h-36 w-44 rounded-lg object-cover"
+        unoptimized
       />
       <div className="mt-2">
         {/* <Link href={`/product/${name.replace(/ /g, "-")}`}> */}

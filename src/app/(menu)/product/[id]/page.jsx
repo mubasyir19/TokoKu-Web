@@ -60,6 +60,7 @@ export default function DetailProduct() {
             height={20}
             alt="arrow"
             className=""
+            unoptimized
           />
         </button>
         <div className="my-auto"></div>
@@ -75,6 +76,7 @@ export default function DetailProduct() {
                 height={384}
                 alt="photo product"
                 className="h-96 w-full rounded-b-3xl object-cover"
+                unoptimized
               />
             )}
           </div>

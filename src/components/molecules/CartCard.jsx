@@ -47,6 +47,7 @@ export default function CartCard({
               height={84}
               alt="photo product"
               className="object-cover"
+              unoptimized
             />
           ) : (
             <div className="h-[84px] w-[84px] rounded-lg bg-[#D9D9D9]"></div>
