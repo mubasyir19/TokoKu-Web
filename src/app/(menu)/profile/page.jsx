@@ -9,18 +9,23 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "@/hooks/Auth/useAuth";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import LoadingModals from "@/components/molecules/LoadingModals";
 
 export default function Profile() {
   const [openPopUpLogout, setOpenPopUpLogout] = useState(false);
   const { payload } = useAuthPayload();
   const { dataProfile } = useFetchProfile(payload?.username);
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, loading } = useAuth();
   const router = useRouter();
 
   const handleLogout = () => {
     Cookies.remove("authToken");
     router.push("/home");
   };
+
+  if (loading) {
+    return <LoadingModals />;
+  }
 
   if (!isLoggedIn) {
     return (
