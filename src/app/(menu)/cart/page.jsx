@@ -17,6 +17,7 @@ export default function Cart() {
   }, [fetchCart, payload?.id]);
 
   const handleCheckout = () => {
+    if (cart.items.length === 0) return;
     localStorage.setItem("totalAmount", cart.totalAmount);
     route.push("/order");
   };
@@ -52,7 +53,8 @@ export default function Cart() {
         <div className="my-auto">
           <button
             onClick={handleCheckout}
-            className="rounded-lg bg-yellow-300 px-4 py-2 font-semibold hover:bg-yellow-primary"
+            className="rounded-lg bg-yellow-300 px-4 py-2 font-semibold hover:bg-yellow-primary disabled:opacity-50"
+            disabled={cart.items.length === 0}
           >
             Checkout
           </button>

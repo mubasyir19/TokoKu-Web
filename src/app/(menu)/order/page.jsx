@@ -6,9 +6,10 @@ import { formatHarga } from "@/helpers/utils";
 import useAuthPayload from "@/hooks/Auth/useAuthPayload";
 import useFetchProfile from "@/hooks/Auth/useFetchProfile";
 import { useCartStore } from "@/store/cartStore";
+import { StarIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function OrderPage() {
   const { cart } = useCartStore();
@@ -18,13 +19,23 @@ export default function OrderPage() {
   // const [address, setAddress] = useState("");
   // const [phoneNumber, setPhoneNumber] = useState("");
 
+  console.log("isi cart = ", cart);
+
   const [methodPayment, setMethodPayment] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const route = useRouter();
 
-  const totalAmount = parseInt(localStorage.getItem("totalAmount"));
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const amount = parseInt(localStorage.getItem("totalAmount")) || 0;
+      setTotalAmount(amount);
+    }
+  }, []);
+
+  // const totalAmount = parseInt(localStorage.getItem("totalAmount"));
   const deliveryFee = 10000;
   const adminFee = 5000;
   const finalPrice = totalAmount + deliveryFee + adminFee;
@@ -156,8 +167,12 @@ export default function OrderPage() {
       <div className="mt-6 rounded-lg border border-gray-400 p-2">
         <p className="my-2 text-lg font-semibold text-black">Payment Method</p>
         <hr className="my-1 bg-gray-500" />
-        <div className="mt-4">
-          <div className="flex items-center gap-x-2">
+        <div className="mt-4 space-y-3">
+          <label
+            htmlFor="cash"
+            className={`flex cursor-pointer items-center justify-between rounded-lg border p-2 has-[:checked]:border-yellow-300 has-[:checked]:bg-yellow-200`}
+          >
+            <span className="text-sm text-black">Cash</span>
             <input
               type="radio"
               id="cash"
@@ -165,10 +180,14 @@ export default function OrderPage() {
               value="Cash"
               checked={methodPayment === "Cash"}
               onChange={(e) => setMethodPayment(e.target.value)}
+              className="accent-yellow-500"
             />
-            <label htmlFor="cash">Cash</label>
-          </div>
-          <div className="flex items-center gap-x-2">
+          </label>
+          <label
+            htmlFor="transfer"
+            className={`flex cursor-pointer items-center justify-between rounded-lg border p-2 has-[:checked]:border-yellow-300 has-[:checked]:bg-yellow-200`}
+          >
+            <span className="text-sm text-black">Transfer</span>
             <input
               type="radio"
               id="transfer"
@@ -176,9 +195,9 @@ export default function OrderPage() {
               value="Transfer"
               checked={methodPayment === "Transfer"}
               onChange={(e) => setMethodPayment(e.target.value)}
+              className="accent-yellow-500"
             />
-            <label htmlFor="transfer">Transfer</label>
-          </div>
+          </label>
         </div>
       </div>
       <div className="mt-6">
