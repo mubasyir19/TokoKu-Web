@@ -2,6 +2,7 @@
 
 import { formatHarga } from "@/helpers/utils";
 import useFetchOrder from "@/hooks/Order/useFetchOrder";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -97,9 +98,12 @@ export default function Transaction() {
                         <button className="rounded-lg bg-red-700 px-2 py-1 text-xs font-medium text-white">
                           Batalkan Pesanan
                         </button>
-                        <button className="rounded-lg bg-yellow-darken px-2 py-1 text-xs font-medium text-white">
+                        <Link
+                          href={`/transaction/${item.order_code}`}
+                          className="rounded-lg bg-yellow-darken px-2 py-1 text-xs font-medium text-white"
+                        >
                           Detail Pesanan
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

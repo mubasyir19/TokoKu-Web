@@ -48,13 +48,15 @@ export default function Cart() {
       <div className="mt-10 flex justify-between">
         <div className="my-auto">
           <p className="text-sm">Total</p>
-          <p className="text-xl font-bold">{formatHarga(cart?.totalAmount)}</p>
+          <p className="text-xl font-bold">
+            {formatHarga(cart?.totalAmount) ?? 0}
+          </p>
         </div>
         <div className="my-auto">
           <button
             onClick={handleCheckout}
             className="rounded-lg bg-yellow-300 px-4 py-2 font-semibold hover:bg-yellow-primary disabled:opacity-50"
-            disabled={cart.items.length === 0}
+            disabled={cart?.items?.length === 0}
           >
             Checkout
           </button>
