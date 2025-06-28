@@ -4,32 +4,31 @@ import { useState, useEffect } from "react";
 
 export default function useAuthPayload() {
   const [payload, setPayload] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [errorAuth, setErrorAuth] = useState(null);
 
   useEffect(() => {
     const fetchAndDecodePayload = async () => {
-      setLoading(true);
-      setError("error");
       try {
         const tokenAuth = Cookies.get("authToken");
         if (tokenAuth) {
           const jwtToken = atob(tokenAuth);
           const decodedPayload = jwtDecode(jwtToken);
           setPayload(decodedPayload);
+          console.log("loading auth = ", loadingAuth);
         } else {
           setPayload(null);
         }
-        setLoading(false);
       } catch (err) {
-        setError(err);
+        setErrorAuth(err);
         setPayload(null);
-        setLoading(false);
+      } finally {
+        setLoadingAuth(false);
       }
     };
 
     fetchAndDecodePayload();
-  }, []);
+  }, [loadingAuth]);
 
-  return { payload, loading, error };
+  return { payload, loadingAuth, errorAuth };
 }
