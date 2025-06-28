@@ -7,7 +7,7 @@ import SkeletonProduct from "./SkeletonProduct";
 export default function ListProduct() {
   const { dataProduct, loading, error } = useFetchProduct();
 
-  if (loading) return <SkeletonProduct count={4} />;
+  if (loading) return <SkeletonProduct count={6} />;
   if (error)
     return (
       <div className="mx-4 mt-5 text-center text-red-500">

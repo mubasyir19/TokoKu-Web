@@ -2,7 +2,7 @@ import useFetchCategory from "@/hooks/Category/useFetchCategory";
 import React from "react";
 import CategoryItem from "../molecules/CategoryItem";
 import SkeletonCategory from "./SkeletonCategory";
-import LoadingModals from "../molecules/LoadingModals";
+// import LoadingModals from "../molecules/LoadingModals";
 
 export default function ListCategory() {
   const { dataCategory, loading, error } = useFetchCategory();
@@ -11,7 +11,7 @@ export default function ListCategory() {
     <>
       <section className="mx-4 mt-5 grid grid-cols-7 gap-x-20 gap-y-5 overflow-x-scroll">
         {loading ? (
-          <LoadingModals />
+          <SkeletonCategory count={10} />
         ) : error ? (
           <p className="text-red-500">Terjadi masalah: {error}</p>
         ) : dataCategory?.length === 0 ? (
@@ -27,7 +27,6 @@ export default function ListCategory() {
           ))
         )}
       </section>
-      {loading && <SkeletonCategory count={10} />}
       {error && <p>Ini error: {error}</p>}
     </>
   );
