@@ -1,8 +1,5 @@
 "use client";
 
-import ProductItem from "@/components/molecules/ProductItem";
-import { formatHarga } from "@/helpers/utils";
-import products from "../../../services/products.json";
 import ListCategory from "@/components/organism/ListCategory";
 import ListProduct from "@/components/organism/ListProduct";
 import useAuthPayload from "@/hooks/Auth/useAuthPayload";
@@ -10,13 +7,12 @@ import Image from "next/image";
 
 export default function Home() {
   const { payload } = useAuthPayload();
-  console.log(payload);
   return (
     <main className="bg-white pb-40">
       <div className="flex justify-between px-4 pt-5">
         <div>
           <p>Selamat Datang</p>
-          <h4 className="text-2xl font-semibold">{payload?.name}</h4>
+          <h4 className="text-xl font-semibold">{payload?.name}</h4>
         </div>
         {/* <h4 className='text-2xl font-semibold'>Selamat Datang</h4> */}
         <div className="my-auto">

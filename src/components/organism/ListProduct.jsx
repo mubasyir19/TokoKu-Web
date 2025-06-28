@@ -8,7 +8,19 @@ export default function ListProduct() {
   const { dataProduct, loading, error } = useFetchProduct();
 
   if (loading) return <SkeletonProduct count={4} />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error)
+    return (
+      <div className="mx-4 mt-5 text-center text-red-500">
+        <p>Gagal memuat produk. Silakan coba lagi nanti.</p>
+      </div>
+    );
+
+  if (!dataProduct || dataProduct.length === 0)
+    return (
+      <div className="mx-4 mt-5 text-center">
+        <p>Produk belum tersedia.</p>
+      </div>
+    );
 
   return (
     <section className="mx-4 mb-20 mt-5 grid grid-cols-2 justify-items-center gap-5">

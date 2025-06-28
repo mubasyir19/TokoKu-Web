@@ -12,6 +12,10 @@ export default function useFetchProduct() {
         const fetchData = await fetch(
           `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/product`,
         );
+        if (!fetchData.ok) {
+          throw new Error(`Server error: ${fetchData.status}`);
+        }
+
         const response = await fetchData.json();
         setDataProduct(response.data);
       } catch (error) {

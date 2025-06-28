@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingModals from "@/components/molecules/LoadingModals";
 import OrderCard from "@/components/molecules/OrderCard";
 import { getTokenCookies } from "@/helpers/token";
 import { formatHarga } from "@/helpers/utils";
@@ -85,6 +86,10 @@ export default function OrderPage() {
       setLoading(false);
     }
   };
+
+  if (loading) {
+    <LoadingModals />;
+  }
 
   return (
     <div className="relative px-5 pb-40 pt-5">

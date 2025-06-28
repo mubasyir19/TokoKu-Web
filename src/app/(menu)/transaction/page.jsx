@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingModals from "@/components/molecules/LoadingModals";
 import { formatHarga } from "@/helpers/utils";
 import useFetchOrder from "@/hooks/Order/useFetchOrder";
 import Link from "next/link";
@@ -10,13 +11,19 @@ export default function Transaction() {
   const [openTab, setOpenTab] = useState("ongoing");
   const router = useRouter();
 
-  const { dataOrder } = useFetchOrder();
-
-  console.log("data order = ", dataOrder);
+  const { dataOrder, loading, error } = useFetchOrder();
 
   const switchTab = (TabName) => {
     setOpenTab(TabName);
   };
+
+  if (loading) return <LoadingModals />;
+  if (error)
+    return (
+      <div className="mx-4 mt-5 text-center text-red-500">
+        <p>Gagal memuat pesanan. Silakan coba lagi nanti.</p>
+      </div>
+    );
 
   return (
     <div className="h-screen bg-white px-4 pb-28">
