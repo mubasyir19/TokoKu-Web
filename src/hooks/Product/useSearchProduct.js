@@ -20,6 +20,12 @@ export default function useSearchProduct(keyword) {
           `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/product/search?keyword=${keyword}`,
           { signal: controller.signal },
         );
+
+        if (fetchData.status === 404) {
+          setResults([]);
+          return;
+        }
+
         const result = await fetchData.json();
         setResults(result.data);
       } catch (error) {
