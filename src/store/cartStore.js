@@ -1,7 +1,7 @@
 import { getTokenCookies } from "@/helpers/token";
 import { create } from "zustand";
 
-export const useCartStore = create((set) => ({
+export const useCartStore = create((set, get) => ({
   cart: {
     totalItems: 0,
     totalAmount: 0,
@@ -94,14 +94,9 @@ export const useCartStore = create((set) => ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${jwtToken}`,
         },
-        // body: JSON.stringify({ userId, productId }),
         body: JSON.stringify({ idCart }),
       });
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BACKEND_TOKOKU}/cart?userId=${userId}`,
-      );
-      const data = await res.json();
-      set({ cart: data.data });
+      await get().fetchCart(userId);
     } catch (error) {
       console.error("Remove item failed:", error);
     } finally {
