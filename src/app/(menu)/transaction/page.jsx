@@ -12,8 +12,6 @@ export default function Transaction() {
   const router = useRouter();
 
   const { dataOrder, loadingOrder, errorOrder } = useFetchOrder();
-  console.log("loading Order =", loadingOrder);
-  console.log("error Order =", errorOrder);
 
   const switchTab = (TabName) => {
     setOpenTab(TabName);

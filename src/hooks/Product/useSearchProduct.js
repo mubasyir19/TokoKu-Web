@@ -21,7 +21,6 @@ export default function useSearchProduct(keyword) {
           { signal: controller.signal },
         );
         const result = await fetchData.json();
-        console.log("ini hasil cari = ", result);
         setResults(result.data);
       } catch (error) {
         setError(error);

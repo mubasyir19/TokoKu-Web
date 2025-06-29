@@ -29,7 +29,6 @@ export default function useFetchOrder() {
             },
           );
           const response = await fetchData.json();
-          console.log("res = ", response);
           setDataOrder(response.data);
         } catch (error) {
           setErrorOrder(error);

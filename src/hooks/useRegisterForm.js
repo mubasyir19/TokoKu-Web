@@ -39,7 +39,6 @@ export default function useRegisterForm() {
       );
 
       const data = await response.json();
-      console.log("Hasil request = ", data);
 
       if (response.ok) {
         router.push("/login");

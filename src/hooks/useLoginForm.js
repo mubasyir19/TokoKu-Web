@@ -37,7 +37,6 @@ export default function useLoginForm() {
       );
 
       const data = await response.json();
-      console.log("Hasil request login = ", data);
 
       if (response.ok) {
         const tokenBase64 = btoa(data.data.access_token);

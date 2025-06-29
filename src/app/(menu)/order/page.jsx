@@ -17,11 +17,6 @@ export default function OrderPage() {
   const { payload } = useAuthPayload();
   const { dataProfile } = useFetchProfile(payload?.username);
 
-  // const [address, setAddress] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-
-  console.log("isi cart = ", cart);
-
   const [methodPayment, setMethodPayment] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -36,7 +31,6 @@ export default function OrderPage() {
     }
   }, []);
 
-  // const totalAmount = parseInt(localStorage.getItem("totalAmount"));
   const deliveryFee = 10000;
   const adminFee = 5000;
   const finalPrice = totalAmount + deliveryFee + adminFee;
@@ -69,8 +63,6 @@ export default function OrderPage() {
           }),
         },
       );
-
-      console.log("hasil checkout = ", response.data);
 
       if (!response.ok) throw Error("Gagal checkout");
 

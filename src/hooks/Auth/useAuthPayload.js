@@ -15,7 +15,6 @@ export default function useAuthPayload() {
           const jwtToken = atob(tokenAuth);
           const decodedPayload = jwtDecode(jwtToken);
           setPayload(decodedPayload);
-          console.log("loading auth = ", loadingAuth);
         } else {
           setPayload(null);
         }
