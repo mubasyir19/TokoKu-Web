@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Thumbnail](./thumbnail.png)
 
-## Getting Started
+---
 
-First, run the development server:
+# TOKOKU
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+Welcome to the frontend repository for **TokoKu**. This web application is built with Next.js and Tailwind CSS to provide a responsive and intuitive user experience.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Demo](#demo)
+- [Technologies Used](#technologies-used)
+- [Local Installation](#local-installation)
+- [Project Structure](#project-structure)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## Features
+
+- **Register**: Create a new user account..
+- **Login**: Sign in to your account.
+- **List Products**: Display a list of available products.
+- **Detail Products**: View product details including price, image, and description.
+- **Add To Cart**: Add selected products to the shopping cart.
+- **Checkout**: Place an order for the items in the shopping cart.
+- **Tracking Transaction**: Track the status of your order or transaction.
+- **Logout**: Sign out from your account.
+
+---
+
+## Demo
+
+You can see a live demo of this application here:
+
+....
+
+---
+
+## Technologies Used
+
+- **[Fronted Framework]**: Next.js
+- **[Backend Framework]**: Express, Typescript
+- **[State Management]**: Zustand
+- **[Styling]**: Tailwind CSS
+- **[Routing]**: Next.js App Router
+- **[Database]**: MySQL
+- **[ORM]**: Prisma
+- **[Others]**: ESLint, Prettier, Sonner, Heroicons
+
+---
+
+## Local Installation
+
+To run this project locally, follow these steps:
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/mubasyir19/TokoKu-Web.git
+    cd Beresin
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Configure Environment Variables (if any):**
+    Create a `.env` file in the project root and add the necessary environment variables. Example:
+
+    ```
+    NEXT_PUBLIC_API_BERESIN=http://localhost:5000/api
+    ```
+
+4.  **Run the application:**
+    ```bash
+    npm run dev
+    ```
+    The application will run at `http://localhost:3000`
+
+---
+
+## Project Structure
+
+```
+├── public/
+├── src/
+│ ├── app/
+│ ├── components/
+│ ├── helpers/
+│ ├── hooks/
+│ ├── services/
+│ ├── store/
+│ ├── middleware.ts
+├── .env
+├── .eslintrc.json
+├── .gitignore
+├── .prettierrc
+├── jsconfig.json
+├── next.config.json
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── README.md
+├── tailwind.config.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This application can be easily deployed using platforms like [Netlify](https://www.netlify.com/), [Vercel](https://vercel.com/), or [GitHub Pages](https://pages.github.com/).
 
-## Learn More
+**General steps:**
 
-To learn more about Next.js, take a look at the following resources:
+1.  Ensure you have an account on your chosen deployment platform.
+2.  Connect your GitHub repository to the platform.
+3.  Configure the build command (usually `npm run build` or `yarn build`) and the output directory (usually `build` or `dist`).
+4.  Configure environment variables in the deployment platform settings.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
+We welcome contributions to this project! If you'd like to contribute, please follow these guidelines:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1.  Fork this repository.
+2.  Create a new branch for your feature or bugfix (`git checkout -b feature/new-feature-name`).
+3.  Make your changes.
+4.  Ensure your code passes linting and tests.
+5.  Commit your changes (`git commit -m 'feat: add new feature'`).
+6.  Push to your branch (`git push origin feature/new-feature-name`).
+7.  Open a Pull Request (PR) to the `main` branch of this repository.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please adhere to our [Contribution Guidelines](CONTRIBUTING.md) (if any) and [Code of Conduct](CODE_OF_CONDUCT.md) (if any).
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## Contact
+
+If you have any questions or would like to get in touch:
+
+- **Mahdy Mubasyir**: https://github.com/mubasyir19
+- **Email**: m.mubasyir19@gmail.com
+- **Website/Portfolio**: https://mahdy-mubasyir.vercel.app/
