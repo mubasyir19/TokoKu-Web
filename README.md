@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Welcome to the frontend repository for **TokoKu**. This web application is built with Next.js and Tailwind CSS to provide a responsive and intuitive user experience.
+Welcome to the frontend repository for **TokoKu**. This web application is built with Next.js and Tailwind CSS to provide a responsive and intuitive user experience. Here's for the [backend](https://github.com/mubasyir19/TokoKu-Backend)
 
 ---
 
